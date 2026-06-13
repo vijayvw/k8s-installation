@@ -13,7 +13,7 @@ sudo sysctl --system
 lsmod | grep br_netfilter                        
 lsmod | grep overlay
 sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -22,7 +22,7 @@ echo \
 $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install containerd.io
+sudo apt-get install -y containerd.io
 sudo systemctl restart containerd
 containerd config default > config.toml
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' config.toml
