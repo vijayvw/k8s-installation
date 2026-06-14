@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
@@ -43,6 +45,7 @@ sudo systemctl enable --now kubelet
 sudo swapoff -a
 
 sudo kubeadm init
+sleep 60
 sudo ctr -n k8s.io images ls
 
 REAL_USER=$(logname)
