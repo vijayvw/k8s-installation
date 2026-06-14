@@ -45,14 +45,21 @@ sudo systemctl enable --now kubelet
 sudo swapoff -a
 
 sudo kubeadm init
-sleep 60
-sudo ctr -n k8s.io images ls
 
 REAL_USER=$(logname)
 
 mkdir -p /home/$REAL_USER/.kube
 cp /etc/kubernetes/admin.conf /home/$REAL_USER/.kube/config
 chown -R $REAL_USER:$REAL_USER /home/$REAL_USER/.kube
+
+until kubectl get nodes >/dev/null 2>&1
+do
+  echo "Waiting for API Server..."
+  sleep 10
+done
+
+sleep 30
+
 
 kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.29/net.yaml
 kubectl get pods -n kube-system
