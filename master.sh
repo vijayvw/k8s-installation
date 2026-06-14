@@ -46,6 +46,8 @@ sudo swapoff -a
 
 sudo kubeadm init
 
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
 REAL_USER=$(logname)
 
 mkdir -p /home/$REAL_USER/.kube
